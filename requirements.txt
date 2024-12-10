@@ -1,0 +1,5 @@
+joblib
+numpy
+nltk
+tldextract
+scikit-learn==1.5.1

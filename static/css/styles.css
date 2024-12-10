@@ -1,0 +1,135 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: url('/static/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.header nav {
+    margin-top: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 20%;
+}
+
+.header nav button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    position: relative;
+}
+
+.header nav button::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #007bff;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.header nav button:hover::before, .header nav button.selected::before {
+    width: 100%;
+    left: 0;
+}
+
+.header nav button:hover, .header nav button.selected {
+    color: #007bff;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+textarea, input[type="text"], button {
+    width: calc(100% - 30px);
+    padding: 15px;
+    margin: 10px auto;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button {
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    display: block;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.result.loading {
+    opacity: 0.5;
+}
+
+.result.legitimate {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: green;
+}
+
+.result.malicious, .result.phishing, .result.bad {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: red;
+}
+
+.result.suspicious {
+    background-color: rgba(255, 165, 0, 0.2);
+    color: orange;
+}
+
+.result.good, .result.safe {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: green;
+}
+
+.result h2 {
+    margin-top: 0;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Email and URL Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Phishing Email and URL Detector</h1>
+        <nav>
+            <button onclick="setInputType('email')" id="email-btn">Email</button>
+            <button onclick="setInputType('url')" id="url-btn">URL</button>
+            <button onclick="setInputType('both')" id="both-btn">Both</button>
+        </nav>
+    </div>
+    <div class="container">
+        <form method="POST">
+            <input type="hidden" id="input_type" name="input_type" value="email">
+            <label for="user_input" id="input_label">Test your email here</label>
+            <textarea id="user_input" name="user_input" rows="10" required>{{ user_input }}</textarea>
+            <button type="submit" onclick="showLoading()">Check</button>
+        </form>
+        {% if result %}
+        <div id="result" class="result {% if 'Malicious' in result %}malicious{% elif 'Suspicious' in result %}suspicious{% elif 'Legitimate' in result %}legitimate{% elif 'bad' in result %}bad{% elif 'good' in result %}good{% elif 'Safe' in result %}safe{% elif 'Phishing' in result %}phishing{% endif %}">
+            <h2>Result:</h2>
+            <p>{{ result }}</p>
+        </div>
+        {% endif %}
+    </div>
+    <script>
+        function setInputType(type) {
+            document.getElementById('input_type').value = type;
+            const userInput = document.getElementById('user_input');
+            const result = document.getElementById('result');
+            const inputLabel = document.getElementById('input_label');
+
+            // Clear the input field and result when switching types
+            userInput.value = '';
+            if (result) {
+                result.innerHTML = '';
+                result.className = 'result';
+            }
+
+            if (type === 'url') {
+                userInput.setAttribute('rows', '1');
+                inputLabel.innerText = "Test your URL here";
+            } else if (type === 'both') {
+                userInput.setAttribute('rows', '10');
+                inputLabel.innerText = "Test your email and URL here";
+            } else {
+                userInput.setAttribute('rows', '10');
+                inputLabel.innerText = "Test your email here";
+            }
+        }
+
+        function showLoading() {
+            const result = document.getElementById('result');
+            if (result) {
+                result.classList.add('loading');
+            }
+        }
+
+        document.querySelectorAll('nav button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
